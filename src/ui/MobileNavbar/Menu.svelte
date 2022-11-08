@@ -95,7 +95,7 @@
     z-index: 100;
     position: fixed;
     margin-top: 73px;
-    margin-bottom: 83px;
+    margin-bottom: 82px;
     padding: 24px 40px 32px;
     background-color: var(--white);
   }
