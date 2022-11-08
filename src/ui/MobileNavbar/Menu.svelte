@@ -23,7 +23,7 @@
   ]
 
   export function getFullLink(link, slug = '') {
-    const pathname = link && link.startsWith('/') ? 'https://app.santimnet.net' : ''
+    const pathname = link && link.startsWith('/') ? 'https://app.santiment.net' : ''
 
     return pathname + link + slug
   }
