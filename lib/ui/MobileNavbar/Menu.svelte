@@ -81,11 +81,11 @@ function onHelpClick() {
 
 <style >section {
   overflow-y: auto;
-  height: calc(100vh - 156px);
+  height: calc(100vh - 155px);
   z-index: 100;
   position: fixed;
   margin-top: 73px;
-  margin-bottom: 82px;
+  margin-bottom: 83px;
   padding: 24px 40px 32px;
   background-color: var(--white);
 }
