@@ -34,6 +34,7 @@
   import NavItem from './NavItem.svelte'
 
   export let user: SAN.Author & { name?: string }
+  export let path = ''
 
   let isMenuOpened = true
 
@@ -61,7 +62,7 @@
           {title}
           {icon}
           link={link + slug}
-          active={isMenuNav ? isMenuOpened : window.location.pathname.includes(link)}
+          active={isMenuNav ? isMenuOpened : path.includes(link)}
           on:click={(e) => onMenuClick(e, isMenuNav)}
         />
       </li>
