@@ -35,7 +35,7 @@
 
   export let user: SAN.Author & { name?: string }
   export let path = ''
-  export let isFullLink = true
+  export let isFullLink = false
 
   let isMenuOpened = false
 
