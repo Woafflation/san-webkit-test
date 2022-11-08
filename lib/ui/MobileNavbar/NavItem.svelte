@@ -10,10 +10,13 @@ export let active = false;</script>
 </a>
 
 <style >a {
-  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   gap: 10px;
   --fill: var(--fiord);
   --color: var(--waterloo);
+}
+a:focus, a:visited, a:active {
+  outline: none;
 }
 
 .active {
