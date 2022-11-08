@@ -10,6 +10,7 @@ export let active = false;</script>
 </a>
 
 <style >a {
+  outline: none;
   gap: 10px;
   --fill: var(--fiord);
   --color: var(--waterloo);
