@@ -25,7 +25,7 @@
 import NavItem from './NavItem.svelte';
 export let user;
 export let path = '';
-export let isFullLink = true;
+export let isFullLink = false;
 let isMenuOpened = false;
 
 function onMenuClick(event, isMenuNav) {
