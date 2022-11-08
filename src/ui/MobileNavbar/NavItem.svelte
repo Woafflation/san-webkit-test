@@ -14,10 +14,16 @@
 
 <style lang="scss">
   a {
-    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     gap: 10px;
     --fill: var(--fiord);
     --color: var(--waterloo);
+
+    &:focus,
+    &:visited,
+    &:active {
+      outline: none;
+    }
   }
 
   .active {
