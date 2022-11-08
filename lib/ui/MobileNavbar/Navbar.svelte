@@ -21,11 +21,12 @@
   isMenuNav: true
 }];</script>
 
-<script>import Menu from './Menu.svelte';
+<script>import Menu, { getFullLink } from './Menu.svelte';
 import NavItem from './NavItem.svelte';
 export let user;
 export let path = '';
-let isMenuOpened = true;
+export let isFullLink = true;
+let isMenuOpened = false;
 
 function onMenuClick(event, isMenuNav) {
   event.preventDefault();
@@ -39,20 +40,16 @@ function onMenuClick(event, isMenuNav) {
 }</script>
 
 {#if isMenuOpened}
-  <Menu {user} bind:isMenuOpened />
+  <Menu {user} {isFullLink} bind:isMenuOpened />
 {/if}
 
 <nav class="fluid">
   <ul class="row justify v-center">
     {#each MOBILE_NAVBAR_LINKS as { title, icon, link, slug = '', isMenuNav }}
+      {@const href = isFullLink ? getFullLink(link, slug) : link + slug}
+      {@const active = isMenuNav ? isMenuOpened : path.includes(link)}
       <li>
-        <NavItem
-          {title}
-          {icon}
-          link={link + slug}
-          active={isMenuNav ? isMenuOpened : path.includes(link)}
-          on:click={(e) => onMenuClick(e, isMenuNav)}
-        />
+        <NavItem {title} {icon} {href} {active} on:click={(e) => onMenuClick(e, isMenuNav)} />
       </li>
     {/each}
   </ul>

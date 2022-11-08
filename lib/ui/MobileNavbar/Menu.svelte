@@ -13,13 +13,18 @@
 }, {
   title: 'Pricing',
   link: '/pricing'
-}];</script>
+}];
+export function getFullLink(link, slug = '') {
+  const pathname = link && link.startsWith('/') ? 'https://app.santimnet.net' : '';
+  return pathname + link + slug;
+}</script>
 
 <script>import Profile from './../../ui/Profile/svelte';
 import { showIntercom } from './../../analytics/intercom';
 import { customerData$ } from './../../stores/user';
 export let user;
 export let isMenuOpened;
+export let isFullLink;
 
 $: ({
   isLoggedIn
@@ -42,8 +47,9 @@ function onHelpClick() {
   <nav class="column">
     <ul>
       {#each MOBILE_MENU_LINKS as { title, link }}
+        {@const href = isFullLink ? getFullLink(link) : link}
         <li class="link body-1">
-          <a href={link} on:click={onLinkClick}>
+          <a {href} on:click={onLinkClick}>
             {title}
           </a>
         </li>
@@ -53,6 +59,7 @@ function onHelpClick() {
   <div class="divider fluid mrg-l mrg--t mrg--b" />
   <button class="btn-0 link body-1 mrg-l mrg--b" on:click={onHelpClick}>Help & Feedback</button>
   {#if isLoggedIn}
+    {@const accountLink = isFullLink ? getFullLink('/account') : '/account'}
     <div class="column body-2 mrg-a mrg--t">
       <Profile {user} class="mrg-l mrg--b">
         <svelte:fragment slot="name">
@@ -62,12 +69,12 @@ function onHelpClick() {
           </div>
         </svelte:fragment>
       </Profile>
-      <a href="account" on:click={onLinkClick} class="btn-2 row hv-center">Account settings</a>
+      <a href={accountLink} on:click={onLinkClick} class="btn-2 row hv-center">Account settings</a>
     </div>
   {:else}
     <div class="column body-2 mrg-a mrg--t">
-      <a href="sign-up" on:click={onLinkClick} class="btn-2 row hv-center mrg-l mrg--b">Sign up</a>
-      <a href="login" on:click={onLinkClick} class="btn-2 row hv-center">Log in</a>
+      <a href="/sign-up" on:click={onLinkClick} class="btn-2 row hv-center mrg-l mrg--b">Sign up</a>
+      <a href="/login" on:click={onLinkClick} class="btn-2 row hv-center">Log in</a>
     </div>
   {/if}
 </section>
@@ -80,10 +87,15 @@ function onHelpClick() {
   margin-top: 73px;
   margin-bottom: 83px;
   padding: 24px 40px 32px;
+  background-color: var(--white);
 }
 
 nav {
   gap: 16px;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .link {
