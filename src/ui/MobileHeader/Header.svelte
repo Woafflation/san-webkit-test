@@ -3,6 +3,7 @@
   import Product from '@/ui/Product.svelte'
 
   export let title = ''
+  export let onSearchClick = () => {}
 </script>
 
 <header class="row v-center justify fluid">
@@ -20,14 +21,14 @@
       <slot name="right" />
     {:else}
       <slot name="share" />
-      <button class="search row hv-center">
+      <button class="search row hv-center" on:click={onSearchClick}>
         <Svg id="search" w="18" />
       </button>
     {/if}
   </section>
 </header>
 
-<style>
+<style lang="scss">
   header {
     position: sticky;
     top: 0;
@@ -41,5 +42,12 @@
   .search {
     width: 40px;
     height: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    &:focus,
+    &:visited,
+    &:active {
+      outline: none;
+    }
   }
 </style>
