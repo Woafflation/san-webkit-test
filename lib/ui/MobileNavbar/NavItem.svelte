@@ -1,21 +1,27 @@
 <script>import Svg from './../../ui/Svg/svelte';
-export let title = '';
-export let icon = '';
-export let href = '';
-export let active = false;</script>
+export let title;
+export let icon;
+export let active = false;
+export let tag = 'a';</script>
 
-<a class="btn column hv-center txt-m" {href} on:click class:active>
-  <Svg id={icon} w="20" h="20" class="icon" />
+<svelte:element
+  this={tag}
+  class="btn column hv-center txt-m"
+  {...$$restProps}
+  on:click
+  class:active
+>
+  <Svg id={icon} w="20" class="icon" />
   {title}
-</a>
+</svelte:element>
 
-<style >a {
+<style >.btn {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   gap: 10px;
   --fill: var(--fiord);
   --color: var(--waterloo);
 }
-a:focus, a:visited, a:active {
+.btn:focus, .btn:visited, .btn:active {
   outline: none;
 }
 

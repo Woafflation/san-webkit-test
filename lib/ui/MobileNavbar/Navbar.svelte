@@ -1,70 +1,68 @@
 <script context="module">export const MOBILE_NAVBAR_LINKS = [{
   title: 'Market',
   icon: 'market',
-  link: '/assets'
+  href: '/assets'
 }, {
   title: 'Chart',
   icon: 'chart',
-  link: '/projects',
+  href: '/projects',
   slug: '/bitcoin'
 }, {
   title: 'Watchlist',
   icon: 'watchlist',
-  link: '/watchlists'
+  href: '/watchlists'
 }, {
   title: 'Insights',
   icon: 'insights',
-  link: '/insights'
-}, {
-  title: 'Menu',
-  icon: 'mobile-menu',
-  isMenuNav: true
+  href: '/insights'
 }];</script>
 
-<script>import Menu, { getFullLink } from './Menu.svelte';
+<script>import Menu from './Menu.svelte';
 import NavItem from './NavItem.svelte';
 export let user;
 export let path = '';
 export let isFullLink = false;
-let isMenuOpened = false;
+export let links = MOBILE_NAVBAR_LINKS;
+export let isMenuOpened = false;
 
-function onMenuClick(event, isMenuNav) {
-  event.preventDefault();
-  if (isMenuNav) isMenuOpened = !isMenuOpened;
+$: isMenuOpened = (path, false);
 
-  if (!isMenuNav) {
-    window.__onLinkClick(event);
-
-    isMenuOpened = false;
-  }
+function onMenuClick() {
+  isMenuOpened = !isMenuOpened;
 }</script>
 
 {#if isMenuOpened}
   <Menu {user} {isFullLink} bind:isMenuOpened />
 {/if}
 
-<nav class="fluid">
-  <ul class="row justify v-center">
-    {#each MOBILE_NAVBAR_LINKS as { title, icon, link, slug = '', isMenuNav }}
-      {@const href = isFullLink ? getFullLink(link, slug) : link + slug}
-      {@const active = isMenuNav ? isMenuOpened : path.includes(link)}
-      <li>
-        <NavItem {title} {icon} {href} {active} on:click={(e) => onMenuClick(e, isMenuNav)} />
-      </li>
-    {/each}
-  </ul>
+<nav class="fluid row justify v-center">
+  {#each links as link}
+    {@const { href, slug = '' } = link}
+    <NavItem
+      {...link}
+      href={href + slug}
+      active={!isMenuOpened && path.startsWith(link.href)}
+      on:click={window.__onLinkClick}
+    />
+  {/each}
+
+  <NavItem
+    tag="button"
+    title="Menu"
+    icon="mobile-menu"
+    active={isMenuOpened}
+    on:click={onMenuClick}
+  />
 </nav>
 
-<style >nav {
-  z-index: 100;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 16px 20px;
-  background: var(--whale);
-  border-top: 1px solid var(--athens);
-}
-
-ul {
-  list-style-type: none;
-}</style>
+<style>
+  nav {
+    z-index: 98;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 16px 20px;
+    background: var(--whale);
+    border-top: 1px solid var(--athens);
+  }
+</style>
