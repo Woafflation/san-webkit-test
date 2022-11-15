@@ -1,6 +1,7 @@
 <script>import Svg from './../../ui/Svg/svelte';
 import Product from './../../ui/Product.svelte';
-export let title = '';</script>
+export let title = '';
+export let onSearchClick = () => {};</script>
 
 <header class="row v-center justify fluid">
   <section class="row v-center">
@@ -17,26 +18,28 @@ export let title = '';</script>
       <slot name="right" />
     {:else}
       <slot name="share" />
-      <button class="search row hv-center">
+      <button class="search row hv-center" on:click={onSearchClick}>
         <Svg id="search" w="18" />
       </button>
     {/if}
   </section>
 </header>
 
-<style>
-  header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 98;
-    background: var(--white);
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--athens);
-  }
+<style >header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 98;
+  background: var(--white);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--athens);
+}
 
-  .search {
-    width: 40px;
-    height: 40px;
-  }
-</style>
+.search {
+  width: 40px;
+  height: 40px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.search:focus, .search:visited, .search:active {
+  outline: none;
+}</style>
